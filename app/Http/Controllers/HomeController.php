@@ -17,12 +17,42 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the search form
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
         return view('home');
+    }
+
+    /**
+     * Show the user favorites
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function favorites()
+    {
+        return view('favorites');
+    }
+
+    /**
+     * Show the user search history
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function history()
+    {
+        return view('history');
+    }
+
+    /**
+     * Show a single gif
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function single( $id )
+    {
+        return view('single');
     }
 }
