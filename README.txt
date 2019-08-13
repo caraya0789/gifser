@@ -17,6 +17,12 @@ Passw: admin123
 API
 A default app key for Giphy is provided in the .env, feel free to change it for your own.
 
+ROUTES AND VIEWS
+
+CONTROLLERS
+
+MODELS
+
 SEARCHING
 
 SEARCH HISTORY
