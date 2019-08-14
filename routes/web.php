@@ -20,3 +20,5 @@ Route::get('/view/{id}', 'HomeController@single')->name('single');
 Route::get('/view', function() {
 	return redirect('/');
 });
+
+Route::middleware('auth')->get('/api/search', 'HomeController@search')->name('search');

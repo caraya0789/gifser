@@ -10644,3 +10644,48 @@ a.text-dark:focus {
   }
 }
 
+#search .card-body {
+  padding: 0.5rem;
+}
+
+#search .form-control:focus {
+  outline: 0 none;
+  box-shadow: 0 0 transparent;
+}
+
+#search .form-control.error {
+  color: red;
+}
+
+#search .form-control.error::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: red;
+}
+
+#search .form-control.error:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: red;
+}
+
+#search .form-control.error::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: red;
+}
+
+#search .form-control.error:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: red;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.gif-holder {
+  height: 200px;
+  background-color: #000;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+

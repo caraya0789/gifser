@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Library\GiphyAPI;
 
 class HomeController extends Controller
 {
@@ -54,5 +55,17 @@ class HomeController extends Controller
     public function single( $id )
     {
         return view('single');
+    }
+
+    /**
+     * Search API endpoint handler
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function search( Request $request )
+    {
+        $api = GiphyAPI::get_instance();
+        $results = $api->search( $request->input('q') );
+        return $results;
     }
 }

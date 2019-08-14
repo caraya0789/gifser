@@ -6,3 +6,36 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+#search .card-body {
+	padding: 0.5rem;
+}
+#search .form-control:focus {
+	outline: 0 none;
+	box-shadow: 0 0 transparent;
+}
+#search .form-control.error {
+	color: red;
+	&::-webkit-input-placeholder { /* WebKit browsers */
+		color: red;
+	}
+	&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color: red;
+	}
+	&::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color: red;
+	}
+	&:-ms-input-placeholder { /* Internet Explorer 10+ */
+		color: red;
+	}
+}
+[v-cloak] {
+	display: none;
+}
+.gif-holder {
+	height: 200px;
+	background-color: #000;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
