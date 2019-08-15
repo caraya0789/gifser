@@ -17,9 +17,6 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5 justify-content-center" v-if="searching" v-cloak>
-        <img src="images/loading.gif" />
-    </div>
     <div class="row mt-5" v-if="results.length && !searching" v-cloak>
         <div v-for="result in results" class="col-md-6 col-lg-4 col-12 mb-4">
             <div class="card">
@@ -29,6 +26,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row mt-5 justify-content-center" v-if="results.length && !searching && !loading && more"  v-cloak>
+        <a href="#" v-on:click="loadmore" class="btn btn-link">Load More</a>
+    </div>
+    <div class="row mt-5 justify-content-center" v-if="searching || loading" v-cloak>
+        <img src="images/loading.gif" />
     </div>
 </div>
 @endsection

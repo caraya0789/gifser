@@ -7,15 +7,22 @@
             <div class="card">
                 <div class="card-header">Search History</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
+                
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Query</th>
+                                <th width="200">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($searches as $search)
+                            <tr>
+                                <th>{{ $search->query }}</th>
+                                <th>{{ $search->created_at }}</th>
+                            </tr>
+                            @endforeach
+                    </table>
             </div>
         </div>
     </div>

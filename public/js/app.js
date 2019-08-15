@@ -32038,11 +32038,16 @@ var searchApp = new Vue({
     results: [],
     query: '',
     searching: false,
-    formError: false
+    formError: false,
+    more: true,
+    loading: false,
+    page: 1
   },
   methods: {
-    search: function search() {
+    search: function search(e) {
       var _this = this;
+
+      e.preventDefault();
 
       if (this.query == '') {
         this.formError = true;
@@ -32051,13 +32056,30 @@ var searchApp = new Vue({
 
       this.formError = false;
       this.searching = true;
+      this.page = 1;
+      this.more = true;
       var q = encodeURIComponent(this.query);
       axios.get("/api/search?q=".concat(q)).then(function (res) {
-        _this.results = [].concat(_toConsumableArray(_this.results), _toConsumableArray(res.data));
-      })["catch"](function () {
-        console.log('Error');
+        _this.results = res.data;
       })["finally"](function () {
         _this.searching = false;
+      });
+    },
+    loadmore: function loadmore(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.loading = true;
+      this.page++;
+      var q = encodeURIComponent(this.query);
+      axios.get("/api/search?q=".concat(q, "&p=").concat(this.page)).then(function (res) {
+        if (!res.data.length) {
+          _this2.more = false;
+        } else {
+          _this2.results = [].concat(_toConsumableArray(_this2.results), _toConsumableArray(res.data));
+        }
+      })["finally"](function () {
+        _this2.loading = false;
       });
     }
   }

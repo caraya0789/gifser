@@ -36,9 +36,13 @@ const searchApp = new Vue({
     	query:'',
     	searching: false,
     	formError: false,
+        more: true,
+        loading: false,
+        page: 1
     },
     methods: {
-    	search: function() {
+    	search: function(e) {
+            e.preventDefault();
     		if(this.query == '') {
     			this.formError = true;
     			return;
@@ -46,23 +50,39 @@ const searchApp = new Vue({
 
     		this.formError = false;
     		this.searching = true;
+            this.page = 1;
+            this.more = true;
 
     		let q = encodeURIComponent( this.query );
     		
-    		axios.get(`/api/search?q=${q}`)
-    			.then(res => {
-    				this.results = [
-    					...this.results,
-    					...res.data
-    				]
-    			})
-    			.catch(() => {
-    				console.log('Error');
-    			})
-    			.finally(() => {
-    				this.searching = false;
-    			})
-    	}
+    		axios.get(`/api/search?q=${q}`).then(res => {
+				this.results = res.data;
+			}).finally(() => {
+				this.searching = false;
+			});
+    	},
+        loadmore: function(e) {
+            e.preventDefault();
+
+            this.loading = true;
+            this.page++;
+
+            let q = encodeURIComponent( this.query );
+            
+            axios.get(`/api/search?q=${q}&p=${this.page}`).then(res => {
+                if(!res.data.length) {
+                    this.more = false;
+                } else {
+                    this.results = [
+                        ...this.results,
+                        ...res.data
+                    ]
+                }
+            }).finally(() => {
+                this.loading = false;
+            })
+
+        }
     }
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Library\GiphyAPI;
+use App\Search;
 
 class HomeController extends Controller
 {
@@ -44,7 +45,10 @@ class HomeController extends Controller
      */
     public function history()
     {
-        return view('history');
+
+        return view('history', [
+            'searches' => \Auth::user()->searches
+        ]);
     }
 
     /**
@@ -65,7 +69,15 @@ class HomeController extends Controller
     public function search( Request $request )
     {
         $api = GiphyAPI::get_instance();
-        $results = $api->search( $request->input('q') );
+        $results = $api->search( $request->input('q'), $request->input('p', 1) );
+
+        if($request->input('p', false)) {
+            $search = new Search();
+            $search->user_id = \Auth::user()->id;
+            $search->query = $request->input('q');
+            $search->save();
+        }
+
         return $results;
     }
 }
