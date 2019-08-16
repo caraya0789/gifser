@@ -36,8 +36,10 @@ class HomeController extends Controller
      */
     public function favorites()
     {
+        $api = GiphyAPI::get_instance();
+        $favorites = $api->get_by_ids(\Auth::user()->get_favorites());
         return view('favorites', [
-            'favorites' => \Auth::user()->favorites
+            'favorites' => $favorites
         ]);
     }
 
@@ -83,8 +85,7 @@ class HomeController extends Controller
         if(count($results) > 0) {
             $favorites = \Auth::user()->get_favorites();
             foreach($results as &$result) {
-                if( in_array($result['id'], $favorites) )
-                    $result['favorite'] = true;
+                $result['favorite'] = in_array($result['id'], $favorites);
             }
         }
 
@@ -111,5 +112,20 @@ class HomeController extends Controller
             \Auth::user()->favorites()->save($favorite);
         }
         return [];
+    }
+
+    public function remove_favorite( Request $request ) {
+        $id = $request->input('id', false);
+        // Exit if no id
+        if(!$id) abort(404);
+
+        $favorites = \Auth::user()->get_favorites();
+        if( in_array( $id, $favorites ) ) {
+            // remove
+            \Auth::user()->favorites()->where('gif_id', $id)->delete();
+            return redirect( route('favorites') );
+        }
+
+        abort(404);
     }
 }

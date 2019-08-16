@@ -2,22 +2,25 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    
+    <h3 class="text-center">Favorites</h3>
+    
+    <div class="row mt-4 gifs">
+
+        @foreach($favorites as $favorite)
+        
+        <div class="col-md-6 col-lg-4 col-12 mb-4">
             <div class="card">
-                <div class="card-header">Favorites</div>
-
+                <div class="gif-holder card-img-top" style="background-image:url('{{ $favorite['url'] }}');"></div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <h4 class="card-title text-center">{{ $favorite['title'] }}</h4>
                 </div>
+                <a href="{{ url('remove_favorite?id='.$favorite['id']) }}" class="favorite added"><i class="fa fa-heart"></i></a>
             </div>
         </div>
+        
+        @endforeach
+
     </div>
 </div>
 @endsection
