@@ -18,12 +18,13 @@
         </div>
     </div>
     <div class="row mt-5" v-if="results.length && !searching" v-cloak>
-        <div v-for="result in results" class="col-md-6 col-lg-4 col-12 mb-4">
+        <div v-for="(result, index) in results" class="col-md-6 col-lg-4 col-12 mb-4">
             <div class="card">
                 <div class="gif-holder card-img-top" :style="'background-image:url('+result.url+')'"></div>
                 <div class="card-body">
                     <h4 class="card-title text-center">@{{ result.title }}</h4>
                 </div>
+                <a href="javascript://" v-on:click="add_favorite(index)" :class="{ 'added': result.favorite }" class="favorite"><i class="fa fa-heart"></i></a>
             </div>
         </div>
     </div>

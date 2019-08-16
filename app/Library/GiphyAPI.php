@@ -42,7 +42,8 @@ class GiphyAPI {
 			$images[] = [
 				'id' => $img['id'],
 				'url' => $img['images']['fixed_height']['url'],
-				'title' => $img['title']
+				'title' => $img['title'],
+				'favorite' => false
 			];
 		}
 

@@ -40,4 +40,20 @@ class User extends Authenticatable
     public function searches() {
         return $this->hasMany('App\Search');
     }
+
+    public function favorites() {
+        return $this->hasMany('App\Favorite');
+    }
+
+    public function get_favorites() {
+        if(!count($this->favorites))
+            return [];
+
+        $favorites = [];
+        foreach($this->favorites as $f) {
+            $favorites[] = $f->gif_id;
+        }
+
+        return $favorites;
+    }
 }

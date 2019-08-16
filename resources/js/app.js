@@ -81,7 +81,11 @@ const searchApp = new Vue({
             }).finally(() => {
                 this.loading = false;
             })
-
+        },
+        add_favorite: function(i) {
+            axios.get(`/api/favorite?id=${this.results[i].id}`);
+            this.results[i].favorite = !this.results[i].favorite;
+            return false;
         }
     }
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Library\GiphyAPI;
 use App\Search;
+use App\Favorite;
 
 class HomeController extends Controller
 {
@@ -35,7 +36,9 @@ class HomeController extends Controller
      */
     public function favorites()
     {
-        return view('favorites');
+        return view('favorites', [
+            'favorites' => \Auth::user()->favorites
+        ]);
     }
 
     /**
@@ -45,9 +48,8 @@ class HomeController extends Controller
      */
     public function history()
     {
-
         return view('history', [
-            'searches' => \Auth::user()->searches
+            'searches' => \Auth::user()->searches()->orderBy('created_at', 'desc')->get()
         ]);
     }
 
@@ -63,21 +65,51 @@ class HomeController extends Controller
 
     /**
      * Search API endpoint handler
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function search( Request $request )
     {
         $api = GiphyAPI::get_instance();
         $results = $api->search( $request->input('q'), $request->input('p', 1) );
 
-        if($request->input('p', false)) {
+        // if this is the first page
+        if(!$request->input('p', false)) {
             $search = new Search();
-            $search->user_id = \Auth::user()->id;
             $search->query = $request->input('q');
-            $search->save();
+
+            \Auth::user()->searches()->save($search);
+        }
+
+        // Set favorites
+        if(count($results) > 0) {
+            $favorites = \Auth::user()->get_favorites();
+            foreach($results as &$result) {
+                if( in_array($result['id'], $favorites) )
+                    $result['favorite'] = true;
+            }
         }
 
         return $results;
+    }
+
+    /**
+     * Favorite Toggle API endpoint handler
+     */
+    public function favorite( Request $request )
+    {
+        $id = $request->input('id', false);
+        // Exit if no id
+        if(!$id) abort(404);
+
+        $favorites = \Auth::user()->get_favorites();
+        if( in_array( $id, $favorites ) ) {
+            // remove
+            \Auth::user()->favorites()->where('gif_id', $id)->delete();
+        } else {
+            // add
+            $favorite = new Favorite();
+            $favorite->gif_id = $id;
+            \Auth::user()->favorites()->save($favorite);
+        }
+        return [];
     }
 }

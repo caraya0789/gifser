@@ -32081,6 +32081,11 @@ var searchApp = new Vue({
       })["finally"](function () {
         _this2.loading = false;
       });
+    },
+    add_favorite: function add_favorite(i) {
+      axios.get("/api/favorite?id=".concat(this.results[i].id));
+      this.results[i].favorite = !this.results[i].favorite;
+      return false;
     }
   }
 });
