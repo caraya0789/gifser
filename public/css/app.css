@@ -13721,7 +13721,7 @@ a.text-dark:focus {
   color: red;
 }
 
-#search .favorite {
+.gifs .favorite {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -13736,15 +13736,15 @@ a.text-dark:focus {
   color: #ccc;
 }
 
-#search .favorite.added {
+.gifs .favorite.added {
   color: #f55;
 }
 
-#search .favorite:hover {
+.gifs .favorite:hover {
   color: #999;
 }
 
-#search .gif-holder {
+.gifs .gif-holder {
   height: 200px;
   background-size: cover;
   background-position: center;
