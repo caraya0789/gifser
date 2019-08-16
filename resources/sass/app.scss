@@ -7,34 +7,62 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-#search .card-body {
-	padding: 0.5rem;
-}
-#search .form-control:focus {
-	outline: 0 none;
-	box-shadow: 0 0 transparent;
-}
-#search .form-control.error {
-	color: red;
-	&::-webkit-input-placeholder { /* WebKit browsers */
-		color: red;
+// Font Awesome
+@import "~font-awesome/scss/font-awesome";
+
+#search {
+	.card-body {
+		padding: 0.5rem;
 	}
-	&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-		color: red;
+	.form-control:focus {
+		outline: 0 none;
+		box-shadow: 0 0 transparent;
 	}
-	&::-moz-placeholder { /* Mozilla Firefox 19+ */
+	.form-control.error {
 		color: red;
+		&::-webkit-input-placeholder { /* WebKit browsers */
+			color: red;
+		}
+		&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+			color: red;
+		}
+		&::-moz-placeholder { /* Mozilla Firefox 19+ */
+			color: red;
+		}
+		&:-ms-input-placeholder { /* Internet Explorer 10+ */
+			color: red;
+		}
 	}
-	&:-ms-input-placeholder { /* Internet Explorer 10+ */
-		color: red;
+	.favorite {
+	    position: absolute;
+	    top: 5px;
+	    right: 5px;
+	    z-index: 100;
+	    background: #fff;
+	    width: 30px;
+	    height: 30px;
+	    line-height: 30px;
+	    text-align: center;
+	    border:1px solid #ccc;
+	    border-radius: 50%;
+	    color: #ccc;
+	    &.added {
+	    	color:#f55;
+	    }
+	    &:hover {
+	    	color:#999;
+	    }
+	}
+	.gif-holder {
+		height: 200px;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 }
 [v-cloak] {
 	display: none;
 }
-.gif-holder {
-	height: 200px;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+.white {
+	background:#fff;
 }
