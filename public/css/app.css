@@ -13736,15 +13736,16 @@ a.text-dark:focus {
   color: #ccc;
 }
 
-.gifs .favorite.added {
-  color: #f55;
-}
-
 .gifs .favorite:hover {
   color: #999;
 }
 
+.gifs .favorite.added {
+  color: #f55;
+}
+
 .gifs .gif-holder {
+  display: block;
   height: 200px;
   background-size: cover;
   background-position: center;

@@ -2,19 +2,14 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <h3 class="text-center">{{ $image['title'] }}</h3>
+    <div class="row justify-content-center mt-4">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Single</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                <div class="card-body text-center">
+                    <img src="{{ $image['url'] }}" />
+                    <p class="mt-4">Share</p>
+                    <p><input class="form-control text-center" readonly value="{{ url($image['id']) }}" />
                 </div>
             </div>
         </div>

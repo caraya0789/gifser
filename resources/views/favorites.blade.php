@@ -11,7 +11,7 @@
         
         <div class="col-md-6 col-lg-4 col-12 mb-4">
             <div class="card">
-                <div class="gif-holder card-img-top" style="background-image:url('{{ $favorite['url'] }}');"></div>
+                <a href="{{ url('view/'.$favorite['id']) }}" class="gif-holder card-img-top" style="background-image:url('{{ $favorite['url'] }}');"></a>
                 <div class="card-body">
                     <h4 class="card-title text-center">{{ $favorite['title'] }}</h4>
                 </div>

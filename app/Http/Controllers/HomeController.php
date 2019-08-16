@@ -62,7 +62,18 @@ class HomeController extends Controller
      */
     public function single( $id )
     {
-        return view('single');
+        if(!$id)
+            abort(404);
+
+        $api = GiphyAPI::get_instance();
+        $images = $api->get_by_ids([$id], 'full');
+
+        if(count($images) == 0)
+            abort(404);
+
+        return view('single', [
+            'image' => $images[0]
+        ]);
     }
 
     /**

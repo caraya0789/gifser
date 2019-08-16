@@ -29,7 +29,7 @@ class GiphyAPI {
 		$this->_api_key = env('GIPHY_APIKEY', '');
 	}
 
-	public function get_by_ids( $ids ) {
+	public function get_by_ids( $ids, $size = '' ) {
 		if( !count($ids) )
 			return [];
 
@@ -37,7 +37,7 @@ class GiphyAPI {
 			'ids' => implode(',', $ids)
 		]);
 
-		return $this->_parseImages( $result );
+		return $this->_parseImages( $result, $size );
 	}
 
 	public function search( $query, $page = 1 ) {
@@ -50,16 +50,18 @@ class GiphyAPI {
 		return $this->_parseImages( $result );
 	}
 
-	protected function _parseImages( $result ) {
+	protected function _parseImages( $result, $size = '' ) {
 		if( !isset( $result['data'] ) || count($result['data']) === 0)
 			return [];
 
 		$images = [];
 
+		// var_dump($result['data'][0]); die;
+
 		foreach($result['data'] as $img) {
 			$images[] = [
 				'id' => $img['id'],
-				'url' => $img['images']['fixed_height']['url'],
+				'url' => $size == 'full' ? $img['images']['original']['url'] : $img['images']['fixed_height']['url'],
 				'title' => $img['title']
 			];
 		}
@@ -70,18 +72,22 @@ class GiphyAPI {
 	protected function _query($endpoint, $data) {
 		$data['api_key'] = $this->_api_key;
 
-		$response = $this->_client->get( $this->_base . $endpoint, [
-			'query' => $data
-		]);
+		try {
+			$response = $this->_client->get( $this->_base . $endpoint, [
+				'query' => $data
+			]);
 
-		if($response->getStatusCode() !== 200)
+			if($response->getStatusCode() !== 200)
+				return [];
+
+			$result = json_decode((string) $response->getBody(), true);
+			if(count($result['data']) === 0)
+				return [];
+
+			return $result;
+		} catch(\Exception $e) {
 			return [];
-
-		$result = json_decode((string) $response->getBody(), true);
-		if(count($result['data']) === 0)
-			return [];
-
-		return $result;
+		}
 	}
 
 }

@@ -24,7 +24,7 @@
     <div class="row mt-5 gifs" v-if="results.length && !searching" v-cloak>
         <div v-for="(result, index) in results" class="col-md-6 col-lg-4 col-12 mb-4">
             <div class="card">
-                <div class="gif-holder card-img-top" :style="'background-image:url('+result.url+')'"></div>
+                <a :href="'/view/'+result.id" class="gif-holder card-img-top" :style="'background-image:url('+result.url+')'"></a>
                 <div class="card-body">
                     <h4 class="card-title text-center">@{{ result.title }}</h4>
                 </div>

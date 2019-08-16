@@ -48,14 +48,15 @@
 	    border:1px solid #ccc;
 	    border-radius: 50%;
 	    color: #ccc;
-	    &.added {
-	    	color:#f55;
-	    }
 	    &:hover {
 	    	color:#999;
 	    }
+	    &.added {
+	    	color:#f55;
+	    }
 	}
 	.gif-holder {
+		display:block;
 		height: 200px;
 		background-size: cover;
 		background-position: center;

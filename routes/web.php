@@ -21,6 +21,9 @@ Route::get('/view/{id}', 'HomeController@single')->name('single');
 Route::get('/view', function() {
 	return redirect('/');
 });
+Route::get('/{id}', function($id) {
+	return redirect('view/'.$id);
+})->name('share');
 
 Route::get('/api/search', 'HomeController@search')->name('search');
 Route::get('/api/favorite', 'HomeController@favorite')->name('favorite');
