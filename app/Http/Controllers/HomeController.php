@@ -81,6 +81,9 @@ class HomeController extends Controller
      */
     public function search( Request $request )
     {
+        if(!$request->input('q', false))
+            return [];
+
         $api = GiphyAPI::get_instance();
         $results = $api->search( $request->input('q'), $request->input('p', 1) );
 
@@ -113,16 +116,27 @@ class HomeController extends Controller
         if(!$id) abort(404);
 
         $favorites = \Auth::user()->get_favorites();
+        $status = '';
         if( in_array( $id, $favorites ) ) {
             // remove
             \Auth::user()->favorites()->where('gif_id', $id)->delete();
+            $status = 'removed';
         } else {
             // add
+            $api = GiphyAPI::get_instance();
+            $images = $api->get_by_ids([$id]);
+            if(!count($images))
+                abort(404);
+
             $favorite = new Favorite();
             $favorite->gif_id = $id;
             \Auth::user()->favorites()->save($favorite);
+
+            $status = 'added';
         }
-        return [];
+        return [
+            'status' => $status
+        ];
     }
 
     public function remove_favorite( Request $request ) {

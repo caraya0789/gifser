@@ -30,6 +30,9 @@ class GiphyAPI {
 	}
 
 	public function get_by_ids( $ids, $size = '' ) {
+		if( !is_array($ids) ) 
+			$ids = [$ids];
+		
 		if( !count($ids) )
 			return [];
 
@@ -55,8 +58,6 @@ class GiphyAPI {
 			return [];
 
 		$images = [];
-
-		// var_dump($result['data'][0]); die;
 
 		foreach($result['data'] as $img) {
 			$images[] = [

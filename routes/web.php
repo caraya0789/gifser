@@ -19,10 +19,10 @@ Route::get('/remove_favorite', 'HomeController@remove_favorite')->name('remove_f
 Route::get('/history', 'HomeController@history')->name('history');
 Route::get('/view/{id}', 'HomeController@single')->name('single');
 Route::get('/view', function() {
-	return redirect('/');
+	return redirect('/', 301);
 });
 Route::get('/{id}', function($id) {
-	return redirect('view/'.$id);
+	return redirect('view/'.$id, 301);
 })->name('share');
 
 Route::get('/api/search', 'HomeController@search')->name('search');

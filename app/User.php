@@ -46,11 +46,12 @@ class User extends Authenticatable
     }
 
     public function get_favorites() {
-        if(!count($this->favorites))
+        $items = $this->favorites()->get();
+        if( !count($items) )
             return [];
 
         $favorites = [];
-        foreach($this->favorites as $f) {
+        foreach( $items as $f ) {
             $favorites[] = $f->gif_id;
         }
 
