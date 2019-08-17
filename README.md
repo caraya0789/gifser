@@ -77,3 +77,8 @@ User can see and remove favorites from the /favorites url as well.
 A user can click a search result image to go to the gif single view, from there the user can share a shorter link.
 
 Regarding the url shorttener algorithm, it was no possible to implement, since all this systems work based on a numeric index, which we don't have in the current Giphy API, so we are using the already hashed gif id as is. We tried a couple of shorttener algorithms but we always end up with a bigger string, which was not the desired result.
+
+## TESTING
+1. Create a .env.testing with your testing settings, Recommended to use a different database
+2. vagrant ssh and run the migrations for the testing env, php artisan migrate --seed --env=testing
+3. vendor/bin/phpunit
